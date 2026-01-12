@@ -1,3 +1,6 @@
+## 🚀 Live Demo
+👉 https://ai-mate-two.vercel.app
+
 # AIMate – AI Productivity Assistant
 
 A full-stack MERN application that combines AI-powered task management, meeting notes, expense tracking, and email automation.
