@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="48" viewBox="0 0 400 120" fill="none">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0" stop-color="#6366F1" />
+      <stop offset="1" stop-color="#4F46E5" />
+    </linearGradient>
+  </defs>
+  <!-- mark / icon -->
+  <g transform="translate(20,16)">
+    <circle cx="36" cy="36" r="36" fill="url(#g)" />
+    <path d="M26 46 L36 22 L46 46 Z" fill="white" opacity="0.95" />
+    <rect x="29" y="44" width="14" height="6" rx="3" fill="white" opacity="0.95" />
+  </g>
+  <!-- wordmark -->
+  <g transform="translate(110,74)">
+    <text x="0" y="0" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial" font-size="42" font-weight="700" fill="#0F172A">TANISHQ</text>
+  </g>
+</svg>
