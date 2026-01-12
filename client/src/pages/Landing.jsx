@@ -398,7 +398,7 @@ const Landing = () => {
         <div className={`container mx-auto px-4 text-center text-sm ${
           theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
         }`}>
-          <p>© 2024 AIMate - AI Productivity Assistant | Built with ❤️ using MERN Stack</p>
+          <p>© 2026 AIMate - AI Productivity Assistant | Built with ❤️ using MERN Stack</p>
         </div>
       </footer>
     </div>
