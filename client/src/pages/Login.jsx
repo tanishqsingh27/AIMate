@@ -112,12 +112,12 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-primary-500 to-blue-500 text-white py-3 rounded-lg font-semibold hover:from-primary-600 hover:to-blue-600 transition-all transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-gradient-to-r from-primary-500 to-blue-500 text-white py-3 rounded-lg font-semibold hover:from-primary-600 hover:to-blue-600 transition-all transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
                   <span className="animate-spin">⏳</span>
-                  Signing in...
+                  <span>Signing in... (Server might be waking up, please wait)</span>
                 </span>
               ) : (
                 'Sign In'
