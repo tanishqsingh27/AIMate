@@ -7,6 +7,17 @@ export const emailsAPI = {
 
   syncEmails: () => api.get('/emails/sync'),
 
+  // Sync in background without blocking UI
+  syncEmailsAsync: async () => {
+    try {
+      // Fire and forget - don't wait for response
+      api.get('/emails/sync').catch(err => console.log('Background sync failed'));
+      return Promise.resolve();
+    } catch (error) {
+      console.log('Sync started in background');
+    }
+  },
+
   generateReply: (id, context = '') =>
     api.post(`/emails/${id}/generate-reply`, { context }),
 
