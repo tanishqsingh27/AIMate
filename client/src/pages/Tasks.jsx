@@ -22,6 +22,7 @@ const Tasks = () => {
 
   const fetchTasks = async () => {
     try {
+      setLoading(true);
       const response = await tasksAPI.getTasks();
       setTasks(response.data.tasks || []);
     } catch (error) {

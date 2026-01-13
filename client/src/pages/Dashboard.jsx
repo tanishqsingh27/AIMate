@@ -23,19 +23,34 @@ const Dashboard = () => {
   }, []);
 
   const fetchDashboardData = async () => {
+    setLoading(true);
     try {
-      const [tasksRes, expensesRes, meetingsRes, emailsRes] = await Promise.all([
-        tasksAPI.getTasks(),
+      // Fetch critical data first (tasks), then fetch rest in background
+      const tasksRes = await tasksAPI.getTasks();
+      const tasksData = tasksRes.data.tasks || [];
+      setTasks(tasksData);
+      
+      // Show partial data immediately
+      setStats(prev => ({
+        ...prev,
+        tasks: {
+          total: tasksData.length,
+          completed: tasksData.filter(t => t.status === 'completed').length,
+        },
+      }));
+      
+      setLoading(false); // Stop loading spinner here
+      
+      // Fetch remaining data in background
+      const [expensesRes, meetingsRes, emailsRes] = await Promise.all([
         expensesAPI.getExpenses(),
         meetingsAPI.getMeetings(),
         emailsAPI.getEmails(),
       ]);
 
-      const tasksData = tasksRes.data.tasks || [];
       const expensesData = expensesRes.data.expenses || [];
       const meetingsData = meetingsRes.data.meetings || [];
 
-      setTasks(tasksData);
       setExpenses(expensesData);
       
       // Count AI-generated meetings strictly by the explicit flag
@@ -59,7 +74,6 @@ const Dashboard = () => {
       });
     } catch (error) {
       toast.error('Failed to load dashboard data');
-    } finally {
       setLoading(false);
     }
   };
