@@ -5,12 +5,12 @@ import { generateEmailReply } from '../services/openaiService.js';
 
 /**
  * @route   GET /api/emails
- * @desc    Get all emails for user with pagination
+ * @desc    Get all emails for user
  * @access  Private
  */
 export const getEmails = async (req, res, next) => {
   try {
-    const { status, limit = 50, skip = 0 } = req.query;
+    const { status } = req.query;
     const user = await User.findById(req.user.id);
     
     const query = { user: req.user.id };
@@ -29,17 +29,11 @@ export const getEmails = async (req, res, next) => {
 
     if (status) query.status = status;
 
-    // Get total count and paginated results
-    const total = await Email.countDocuments(query);
-    const emails = await Email.find(query)
-      .sort({ receivedAt: -1, createdAt: -1 })
-      .limit(parseInt(limit))
-      .skip(parseInt(skip));
+    const emails = await Email.find(query).sort({ receivedAt: -1, createdAt: -1 });
 
     res.json({
       success: true,
       count: emails.length,
-      total,
       emails,
     });
   } catch (error) {

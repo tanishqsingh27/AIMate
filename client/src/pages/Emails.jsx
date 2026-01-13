@@ -118,8 +118,7 @@ const Emails = () => {
 
   const fetchEmails = async () => {
     try {
-      // Load only first 50 emails initially for speed
-      const response = await emailsAPI.getEmails({ limit: 50 });
+      const response = await emailsAPI.getEmails();
       setEmails(response.data.emails || []);
     } catch (error) {
       console.error('Error fetching emails:', error);
@@ -144,21 +143,11 @@ const Emails = () => {
 
   const handleSyncEmails = async () => {
     try {
-      toast.loading('Syncing emails in background...');
-      // Use async sync - don't wait for it to complete
-      emailsAPI.syncEmailsAsync();
+      toast.loading('Syncing emails...');
+      const response = await emailsAPI.syncEmails();
       toast.dismiss();
-      toast.success('Sync started! You can continue using the app');
-      
-      // Refresh emails after a short delay without blocking UI
-      setTimeout(() => {
-        fetchEmails();
-      }, 2000);
-    } catch (error) {
-      toast.dismiss();
-      toast.error(error.response?.data?.error || 'Failed to sync emails');
-    }
-  };
+      toast.success(`Synced ${response.data.count} emails!`);
+      fetchEmails();
     } catch (error) {
       toast.dismiss();
       toast.error(error.response?.data?.error || 'Failed to sync emails');
