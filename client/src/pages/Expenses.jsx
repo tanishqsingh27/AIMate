@@ -163,17 +163,17 @@ const Expenses = () => {
 
       {/* AI Insights */}
       {showInsights && (
-        <div className="card bg-gradient-to-r from-primary-50 to-blue-50 border-2 border-primary-200">
+        <div className={`card border-2 ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-gradient-to-r from-primary-50 to-blue-50 border-primary-200'}`}>
           <div className="flex items-start justify-between mb-2">
             <div className="flex items-center gap-2">
-              <h2 className="text-xl font-semibold text-primary-900">🤖 AI Budget Insights</h2>
+              <h2 className={`text-xl font-semibold ${theme === 'dark' ? 'text-white' : 'text-primary-900'}`}>🤖 AI Budget Insights</h2>
               <span className="px-2 py-1 bg-primary-600 text-white rounded text-xs font-medium">
                 AI Powered
               </span>
             </div>
             <button
               onClick={() => setShowInsights(false)}
-              className="text-primary-600 hover:text-primary-800"
+              className={`${theme === 'dark' ? 'text-gray-300 hover:text-white' : 'text-primary-600 hover:text-primary-800'}`}
             >
               ✕
             </button>
