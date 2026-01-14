@@ -14,13 +14,12 @@ const Expenses = lazy(() => import('./pages/Expenses'));
 const Meetings = lazy(() => import('./pages/Meetings'));
 const Emails = lazy(() => import('./pages/Emails'));
 
-// Loading component
-function PageLoader() {
+// Subtle loading component
+function SimpleLoader() {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-primary-500 to-blue-500">
-      <div className="text-center text-white">
-        <div className="text-6xl mb-4 animate-bounce">🤖</div>
-        <div className="text-xl">Loading...</div>
+    <div className="flex items-center justify-center py-12">
+      <div className="text-center text-gray-600 dark:text-gray-400">
+        <div className="text-sm">Loading...</div>
       </div>
     </div>
   );
@@ -60,10 +59,9 @@ function PrivateRoute({ children }) {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-primary-500 to-blue-500">
-        <div className="text-center text-white">
-          <div className="text-6xl mb-4 animate-bounce">🤖</div>
-          <div className="text-xl">Loading AIMate...</div>
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center text-gray-600 dark:text-gray-400">
+          <div className="text-sm">Loading AIMate...</div>
         </div>
       </div>
     );
@@ -76,7 +74,7 @@ function App() {
   return (
     <>
       <Toaster />
-      <Suspense fallback={<PageLoader />}>
+      <Suspense fallback={<SimpleLoader />}>
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/landing" element={<Landing />} />
@@ -91,11 +89,11 @@ function App() {
               </PrivateRoute>
             }
           >
-            <Route index element={<Suspense fallback={<PageLoader />}><Dashboard /></Suspense>} />
-            <Route path="tasks" element={<Suspense fallback={<PageLoader />}><Tasks /></Suspense>} />
-            <Route path="expenses" element={<Suspense fallback={<PageLoader />}><Expenses /></Suspense>} />
-            <Route path="meetings" element={<Suspense fallback={<PageLoader />}><Meetings /></Suspense>} />
-            <Route path="emails" element={<Suspense fallback={<PageLoader />}><Emails /></Suspense>} />
+            <Route index element={<Suspense fallback={<SimpleLoader />}><Dashboard /></Suspense>} />
+            <Route path="tasks" element={<Suspense fallback={<SimpleLoader />}><Tasks /></Suspense>} />
+            <Route path="expenses" element={<Suspense fallback={<SimpleLoader />}><Expenses /></Suspense>} />
+            <Route path="meetings" element={<Suspense fallback={<SimpleLoader />}><Meetings /></Suspense>} />
+            <Route path="emails" element={<Suspense fallback={<SimpleLoader />}><Emails /></Suspense>} />
           </Route>
         </Routes>
       </Suspense>
