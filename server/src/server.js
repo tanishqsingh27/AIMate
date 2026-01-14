@@ -18,8 +18,8 @@ import emailRoutes from './routes/emails.js';
 // Initialize Express app
 const app = express();
 
-// Connect to Database
-connectDB();
+// Connect to Database (non-blocking)
+connectDB().catch(err => console.error('DB connection failed:', err));
 
 // Create uploads directory
 createUploadsDir();

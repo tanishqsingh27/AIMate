@@ -6,8 +6,8 @@
 const API_URL = import.meta.env.VITE_API_URL || '/api';
 
 export const startKeepAlive = () => {
-  // Ping every 12 minutes (Render free tier spins down after 15 min of inactivity)
-  const PING_INTERVAL = 12 * 60 * 1000; // 12 minutes
+  // Ping every 5 minutes to keep server warm (Vercel cold starts after 10 min inactivity)
+  const PING_INTERVAL = 5 * 60 * 1000; // 5 minutes
   
   let isActive = true;
   let intervalId;
