@@ -4,6 +4,7 @@ dotenv.config();
 
 import express from 'express';
 import cors from 'cors';
+import compression from 'compression';
 import { connectDB } from './config/db.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { createUploadsDir } from './utils/createUploadsDir.js';
@@ -24,7 +25,8 @@ connectDB().catch(err => console.error('DB connection failed:', err));
 // Create uploads directory
 createUploadsDir();
 
-// Middleware
+// Middleware - Add compression for faster response times
+app.use(compression()); // Enable gzip compression
 app.use(cors({
   origin: function (origin, callback) {
     // Allow requests with no origin (like mobile apps or curl)

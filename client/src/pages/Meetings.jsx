@@ -107,17 +107,17 @@ const Meetings = () => {
   }
 
   return (
-    <div className="space-y-4 sm:space-y-6">
+    <div className="space-y-6">
       <div>
         <h1
-          className={`text-2xl sm:text-3xl font-bold ${
+          className={`text-3xl font-bold ${
             theme === 'dark' ? 'text-white' : 'text-gray-900'
           }`}
         >
           Meetings
         </h1>
         <p
-          className={`mt-1 text-sm sm:text-base ${
+          className={`mt-1 ${
             theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
           }`}
         >
@@ -127,17 +127,17 @@ const Meetings = () => {
 
       {/* Create Meeting */}
       <div className="card">
-        <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-4">
-          <h2 className="text-lg sm:text-xl font-semibold">Create New Meeting</h2>
+        <div className="flex items-center gap-2 mb-4">
+          <h2 className="text-xl font-semibold">Create New Meeting</h2>
           {useAI && (
-            <span className="px-2 py-1 bg-primary-600 text-white rounded text-xs font-medium w-fit">
+            <span className="px-2 py-1 bg-primary-600 text-white rounded text-xs font-medium">
               🤖 AI-Generated Description
             </span>
           )}
         </div>
         
         {/* Toggle between AI and Manual */}
-        <div className="mb-4 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+        <div className="mb-4 flex items-center gap-3">
           <button
             type="button"
             onClick={() => setUseAI(true)}

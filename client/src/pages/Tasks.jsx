@@ -118,18 +118,18 @@ const Tasks = () => {
   }
 
   return (
-    <div className="space-y-4 sm:space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
         <div>
           <h1
-            className={`text-2xl sm:text-3xl font-bold ${
+            className={`text-3xl font-bold ${
               theme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}
           >
             Tasks
           </h1>
           <p
-            className={`mt-1 text-sm sm:text-base ${
+            className={`mt-1 ${
               theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
             }`}
           >
@@ -138,7 +138,7 @@ const Tasks = () => {
         </div>
         <button
           onClick={() => setShowGoalForm(!showGoalForm)}
-          className="btn-primary text-sm sm:text-base w-full sm:w-auto"
+          className="btn-primary"
         >
           {showGoalForm ? 'Cancel' : 'Generate from Goal'}
         </button>
@@ -146,31 +146,31 @@ const Tasks = () => {
 
       {/* Generate Tasks from Goal */}
       {showGoalForm && (
-        <div className={`card border-2 p-4 sm:p-6 ${theme === 'dark' ? 'border-primary-400 bg-gradient-to-r from-slate-800 to-slate-900' : 'border-primary-200 bg-gradient-to-r from-primary-50 to-blue-50'}`}>
-          <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-4">
-            <h2 className={`text-lg sm:text-xl font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>🤖 AI Generate Tasks</h2>
-            <span className="px-2 py-1 bg-primary-600 text-white rounded text-xs font-medium w-fit">
+        <div className={`card border-2 ${theme === 'dark' ? 'border-primary-400 bg-gradient-to-r from-slate-800 to-slate-900' : 'border-primary-200 bg-gradient-to-r from-primary-50 to-blue-50'}`}>
+          <div className="flex items-center gap-2 mb-4">
+            <h2 className={`text-xl font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>🤖 AI Generate Tasks from Goal</h2>
+            <span className="px-2 py-1 bg-primary-600 text-white rounded text-xs font-medium">
               AI Powered
             </span>
           </div>
-          <p className={`text-xs sm:text-sm mb-4 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+          <p className={`text-sm mb-4 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
             Enter your goal and AI will automatically break it down into structured, actionable tasks.
           </p>
-          <form onSubmit={handleGenerateTasks} className="space-y-3 sm:space-y-4">
+          <form onSubmit={handleGenerateTasks} className="space-y-4">
             <div>
-              <label className={`block text-xs sm:text-sm font-medium mb-1 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+              <label className={`block text-sm font-medium mb-1 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
                 Enter your goal
               </label>
               <input
                 type="text"
                 value={goal}
                 onChange={(e) => setGoal(e.target.value)}
-                placeholder="e.g., Finish AI project, Launch product"
-                className="input-field text-sm"
+                placeholder="e.g., Finish AI project, Launch new product, Complete course"
+                className="input-field"
                 required
               />
             </div>
-            <button type="submit" className="btn-primary flex items-center justify-center gap-2 w-full text-sm sm:text-base">
+            <button type="submit" className="btn-primary flex items-center gap-2">
               <span>🤖</span>
               <span>Generate Tasks with AI</span>
             </button>

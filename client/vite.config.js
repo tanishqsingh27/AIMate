@@ -13,22 +13,26 @@ export default defineConfig({
     },
   },
   build: {
-    // Optimize build for faster loading - use esbuild (default, faster than terser)
+    // Optimize build for faster loading
     minify: 'esbuild',
+    cssCodeSplit: true,
+    sourcemap: false, // Disable sourcemaps in production for smaller bundle
     rollupOptions: {
       output: {
         manualChunks: {
-          // Split large dependencies into separate chunks
+          // Split large dependencies into separate chunks for parallel loading
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
           'ui-vendor': ['react-hot-toast'],
+          'chart-vendor': ['chart.js', 'react-chartjs-2'],
         },
       },
     },
-    chunkSizeWarningLimit: 500,
+    chunkSizeWarningLimit: 600,
+    target: 'esnext', // Use modern JS for smaller bundles
   },
   optimizeDeps: {
-    // Pre-bundle these dependencies
-    include: ['react', 'react-dom', 'react-router-dom', 'axios', 'react-hot-toast'],
+    // Pre-bundle these dependencies for faster cold starts
+    include: ['react', 'react-dom', 'react-router-dom', 'axios', 'react-hot-toast', 'chart.js'],
   },
 });
 

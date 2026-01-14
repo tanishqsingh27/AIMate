@@ -7,8 +7,14 @@ import { ThemeProvider } from './context/ThemeContext';
 import { startKeepAlive } from './utils/keepAlive';
 import './index.css';
 
-// Start keep-alive to prevent server cold starts
-startKeepAlive();
+// Start keep-alive asynchronously to not block initial render
+if ('requestIdleCallback' in window) {
+  // Use requestIdleCallback if available (modern browsers)
+  requestIdleCallback(() => startKeepAlive());
+} else {
+  // Fallback to setTimeout
+  setTimeout(() => startKeepAlive(), 2000);
+}
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
