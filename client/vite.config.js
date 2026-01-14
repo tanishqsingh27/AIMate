@@ -13,13 +13,8 @@ export default defineConfig({
     },
   },
   build: {
-    // Optimize build for faster loading
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-      },
-    },
+    // Optimize build for faster loading - use esbuild (default, faster than terser)
+    minify: 'esbuild',
     rollupOptions: {
       output: {
         manualChunks: {
