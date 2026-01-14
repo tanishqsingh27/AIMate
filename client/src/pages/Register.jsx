@@ -9,12 +9,29 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
   const { register } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
+  // Client-side validation
+  const validateForm = () => {
+    const newErrors = {};
+    if (!name.trim()) newErrors.name = 'Name is required';
+    if (!email.trim()) newErrors.email = 'Email is required';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) newErrors.email = 'Invalid email';
+    if (!password) newErrors.password = 'Password is required';
+    else if (password.length < 6) newErrors.password = 'Password must be at least 6 characters';
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Validate before API call
+    if (!validateForm()) return;
+
     setLoading(true);
 
     try {
@@ -84,10 +101,11 @@ const Register = () => {
                   theme === 'dark' 
                     ? 'bg-gray-800 border border-gray-700 text-white placeholder-gray-500' 
                     : 'border border-gray-300'
-                }`}
+                } ${errors.name ? 'border-red-500' : ''}`}
                 placeholder="John Doe"
                 required
               />
+              {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
             </div>
 
             <div>
@@ -104,10 +122,11 @@ const Register = () => {
                   theme === 'dark' 
                     ? 'bg-gray-800 border border-gray-700 text-white placeholder-gray-500' 
                     : 'border border-gray-300'
-                }`}
+                } ${errors.email ? 'border-red-500' : ''}`}
                 placeholder="you@example.com"
                 required
               />
+              {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
             </div>
 
             <div>
@@ -124,14 +143,15 @@ const Register = () => {
                   theme === 'dark' 
                     ? 'bg-gray-800 border border-gray-700 text-white placeholder-gray-500' 
                     : 'border border-gray-300'
-                }`}
+                } ${errors.password ? 'border-red-500' : ''}`}
                 placeholder="Minimum 6 characters"
                 required
                 minLength={6}
               />
-              <p className={`text-xs mt-1 ${
+              {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
+              {!errors.password && <p className={`text-xs mt-1 ${
                 theme === 'dark' ? 'text-gray-500' : 'text-gray-500'
-              }`}>Must be at least 6 characters long</p>
+              }`}>Must be at least 6 characters long</p>}
             </div>
 
             <button

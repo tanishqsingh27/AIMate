@@ -27,7 +27,7 @@ const Layout = () => {
     >
       {/* Top Bar */}
       <header
-        className={`w-full px-6 md:px-8 py-3 flex items-center justify-between border-b transition-colors ${
+        className={`w-full px-4 sm:px-6 md:px-8 py-3 flex items-center justify-between border-b transition-colors ${
           theme === 'dark' ? 'border-gray-800 bg-gray-900' : 'border-gray-200 bg-white'
         }`}
       >
@@ -172,7 +172,7 @@ const Layout = () => {
 
       {/* Main Content */}
       <main
-        className={`px-6 md:px-8 py-6 transition-colors ${
+        className={`px-4 sm:px-6 md:px-8 py-4 sm:py-6 transition-colors ${
           theme === 'dark' ? 'bg-gray-900' : 'bg-[#F5F7FA]'
         }`}
       >

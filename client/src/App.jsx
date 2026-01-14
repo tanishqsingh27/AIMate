@@ -1,16 +1,30 @@
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 import Layout from './components/Layout';
-import Landing from './pages/Landing';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Dashboard from './pages/Dashboard';
-import Tasks from './pages/Tasks';
-import Expenses from './pages/Expenses';
-import Meetings from './pages/Meetings';
-import Emails from './pages/Emails';
+import { Suspense, lazy, useEffect } from 'react';
 import Toaster from './components/Toaster';
-import { useEffect } from 'react';
+
+// Code splitting - lazy load pages for faster initial load
+const Landing = lazy(() => import('./pages/Landing'));
+const Login = lazy(() => import('./pages/Login'));
+const Register = lazy(() => import('./pages/Register'));
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const Tasks = lazy(() => import('./pages/Tasks'));
+const Expenses = lazy(() => import('./pages/Expenses'));
+const Meetings = lazy(() => import('./pages/Meetings'));
+const Emails = lazy(() => import('./pages/Emails'));
+
+// Loading component
+function PageLoader() {
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-primary-500 to-blue-500">
+      <div className="text-center text-white">
+        <div className="text-6xl mb-4 animate-bounce">🤖</div>
+        <div className="text-xl">Loading...</div>
+      </div>
+    </div>
+  );
+}
 
 // Gmail OAuth Callback Handler Component
 function GmailCallback() {
@@ -62,27 +76,29 @@ function App() {
   return (
     <>
       <Toaster />
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/landing" element={<Landing />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/emails" element={<GmailCallback />} />
-        <Route
-          path="/app"
-          element={
-            <PrivateRoute>
-              <Layout />
-            </PrivateRoute>
-          }
-        >
-          <Route index element={<Dashboard />} />
-          <Route path="tasks" element={<Tasks />} />
-          <Route path="expenses" element={<Expenses />} />
-          <Route path="meetings" element={<Meetings />} />
-          <Route path="emails" element={<Emails />} />
-        </Route>
-      </Routes>
+      <Suspense fallback={<PageLoader />}>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/landing" element={<Landing />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/emails" element={<GmailCallback />} />
+          <Route
+            path="/app"
+            element={
+              <PrivateRoute>
+                <Layout />
+              </PrivateRoute>
+            }
+          >
+            <Route index element={<Suspense fallback={<PageLoader />}><Dashboard /></Suspense>} />
+            <Route path="tasks" element={<Suspense fallback={<PageLoader />}><Tasks /></Suspense>} />
+            <Route path="expenses" element={<Suspense fallback={<PageLoader />}><Expenses /></Suspense>} />
+            <Route path="meetings" element={<Suspense fallback={<PageLoader />}><Meetings /></Suspense>} />
+            <Route path="emails" element={<Suspense fallback={<PageLoader />}><Emails /></Suspense>} />
+          </Route>
+        </Routes>
+      </Suspense>
     </>
   );
 }

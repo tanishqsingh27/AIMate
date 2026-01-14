@@ -91,19 +91,19 @@ const Dashboard = () => {
     : 0;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div>
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
           <div>
             <h1
-              className={`text-3xl font-bold ${
+              className={`text-2xl sm:text-3xl font-bold ${
                 theme === 'dark' ? 'text-white' : 'text-gray-900'
               }`}
             >
               Dashboard
             </h1>
             <p
-              className={`mt-1 ${
+              className={`mt-1 text-sm sm:text-base ${
                 theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
               }`}
             >
@@ -113,8 +113,8 @@ const Dashboard = () => {
           <span
             className={
               theme === 'dark'
-                ? 'text-sm font-semibold tracking-wide uppercase px-3.5 py-1.5 rounded-full border border-blue-500/50 bg-blue-500/10 text-blue-100'
-                : 'text-sm font-semibold tracking-wide uppercase px-3.5 py-1.5 rounded-full border border-blue-200 bg-blue-50 text-blue-700'
+                ? 'text-xs sm:text-sm font-semibold tracking-wide uppercase px-3 py-1.5 rounded-full border border-blue-500/50 bg-blue-500/10 text-blue-100 w-fit'
+                : 'text-xs sm:text-sm font-semibold tracking-wide uppercase px-3 py-1.5 rounded-full border border-blue-200 bg-blue-50 text-blue-700 w-fit'
             }
           >
             AI Powered
@@ -123,7 +123,7 @@ const Dashboard = () => {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
         <div
           className={`group relative overflow-hidden rounded-2xl border transition-all duration-300 ${
             theme === 'dark'
@@ -133,20 +133,20 @@ const Dashboard = () => {
         >
           <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-transparent" />
           <div className="relative p-5 space-y-3">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-2">
               <div>
-                <p className={theme === 'dark' ? 'text-gray-400 text-xs' : 'text-gray-500 text-xs'}>Workload</p>
-                <p className={theme === 'dark' ? 'text-white text-lg font-semibold' : 'text-gray-900 text-lg font-semibold'}>
+                <p className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Workload</p>
+                <p className={`text-sm sm:text-base ${theme === 'dark' ? 'text-white' : 'text-gray-900'} font-semibold`}>
                   Tasks
                 </p>
               </div>
-              <span className="text-xs font-medium text-blue-700 bg-blue-100 px-3 py-1 rounded-full">Active</span>
+              <span className="text-xs font-medium text-blue-700 bg-blue-100 px-2 py-1 rounded-full whitespace-nowrap">Active</span>
             </div>
             <div className="flex items-baseline gap-2">
-              <p className={theme === 'dark' ? 'text-4xl font-bold text-white' : 'text-4xl font-bold text-blue-700'}>
+              <p className={`text-3xl sm:text-4xl font-bold ${theme === 'dark' ? 'text-white' : 'text-blue-700'}`}>
                 {stats.tasks.total}
               </p>
-              <p className={theme === 'dark' ? 'text-sm text-gray-400' : 'text-sm text-gray-600'}>
+              <p className={`text-xs sm:text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                 {stats.tasks.completed} done
               </p>
             </div>

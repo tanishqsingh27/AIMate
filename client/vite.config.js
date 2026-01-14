@@ -12,5 +12,28 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    // Optimize build for faster loading
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+      },
+    },
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Split large dependencies into separate chunks
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'ui-vendor': ['react-hot-toast'],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 500,
+  },
+  optimizeDeps: {
+    // Pre-bundle these dependencies
+    include: ['react', 'react-dom', 'react-router-dom', 'axios', 'react-hot-toast'],
+  },
 });
 
