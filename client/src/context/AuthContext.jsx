@@ -42,8 +42,9 @@ export const AuthProvider = ({ children }) => {
     const response = await authAPI.login(email, password);
     const { token: newToken, user: userData } = response.data;
     localStorage.setItem('token', newToken);
-    setToken(newToken);
     setUser(userData);
+    setToken(newToken);
+    setLoading(false);
     return response.data;
   };
 
@@ -51,8 +52,9 @@ export const AuthProvider = ({ children }) => {
     const response = await authAPI.register(name, email, password);
     const { token: newToken, user: userData } = response.data;
     localStorage.setItem('token', newToken);
-    setToken(newToken);
     setUser(userData);
+    setToken(newToken);
+    setLoading(false);
     return response.data;
   };
 
