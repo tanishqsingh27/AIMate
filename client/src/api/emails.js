@@ -6,7 +6,7 @@ export const emailsAPI = {
   getEmail: (id) => api.get(`/emails/${id}`),
 
   syncEmails: () => api.get('/emails/sync'),
-d
+
   generateReply: (id, context = '') =>
     api.post(`/emails/${id}/generate-reply`, { context }),
 
