@@ -36,7 +36,21 @@ const Login = () => {
       toast.success('Welcome back!');
       navigate('/app');
     } catch (error) {
-      toast.error(error.response?.data?.error || 'Login failed');
+      // Enhanced error handling for different scenarios
+      console.error('Login error:', error);
+      
+      if (error.code === 'ECONNABORTED') {
+        toast.error('Request timeout. Please check your connection and try again.');
+      } else if (error.message === 'Network Error') {
+        toast.error('Cannot connect to server. Please check your internet connection.');
+      } else if (error.response) {
+        // Server responded with error
+        const errorMsg = error.response.data?.error || 'Login failed';
+        toast.error(errorMsg);
+      } else {
+        // Unknown error
+        toast.error('Login failed. Please try again.');
+      }
     } finally {
       setLoading(false);
     }

@@ -36,7 +36,7 @@ const Landing = () => {
     }`}>
       {/* Header */}
       <header className="container mx-auto px-4 py-6">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           {/* Left: Logo & Branding */}
           <div className="flex items-center gap-3">
             <div className={`p-3 rounded-lg ${
@@ -57,10 +57,10 @@ const Landing = () => {
           </div>
 
           {/* Center-Right: Auth Links */}
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3 sm:justify-end">
             <Link
               to="/login"
-              className={`px-6 py-2 rounded-lg font-medium transition-all transform hover:scale-105 ${
+              className={`w-full sm:w-auto text-center px-6 py-2 rounded-lg font-medium transition-all transform hover:scale-105 ${
                 theme === 'dark'
                   ? 'text-[#50B4F7] hover:bg-gray-800/50'
                   : 'text-primary-600 hover:bg-primary-100/50'
@@ -70,7 +70,7 @@ const Landing = () => {
             </Link>
             <Link
               to="/register"
-              className={`px-6 py-2 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105 ${
+              className={`w-full sm:w-auto text-center px-6 py-2 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105 ${
                 theme === 'dark'
                   ? 'bg-gradient-to-r from-[#50B4F7] to-[#2A80B9] text-white'
                   : 'bg-gradient-to-r from-primary-500 to-blue-500 text-white'
@@ -82,7 +82,7 @@ const Landing = () => {
             {/* Right: Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className={`p-3 rounded-lg transition-all transform hover:scale-110 ${
+              className={`w-full sm:w-auto justify-center p-3 rounded-lg transition-all transform hover:scale-110 ${
                 theme === 'dark' 
                   ? 'bg-gray-800/50 hover:bg-gray-700/70 border border-gray-700' 
                   : 'bg-primary-100/50 hover:bg-primary-200/50 border border-primary-200'
@@ -103,7 +103,7 @@ const Landing = () => {
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24">
           {/* Left Side - Text Content */}
-          <div className="space-y-8">
+          <div className="space-y-8 text-center lg:text-left">
             {/* New AI-boosted Tag */}
             <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-sm ${
               theme === 'dark'
@@ -123,7 +123,7 @@ const Landing = () => {
 
             {/* Main Headline */}
             <div className="space-y-2">
-              <h1 className={`text-5xl md:text-6xl lg:text-7xl font-bold leading-tight ${
+              <h1 className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight ${
                 theme === 'dark' ? 'text-white' : 'text-gray-900'
               }`}>
                 <span className="block">Build faster.</span>
@@ -133,14 +133,14 @@ const Landing = () => {
             </div>
 
             {/* Sub-headline */}
-            <p className={`text-xl md:text-2xl leading-relaxed max-w-2xl ${
+            <p className={`text-lg sm:text-xl md:text-2xl leading-relaxed max-w-2xl mx-auto lg:mx-0 ${
               theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
             }`}>
               A lightweight AI productivity assistant for teams — tasks, meetings, and insights in one place.
             </p>
 
             {/* Feature Tags */}
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
               {features.map((feature, index) => (
                 <div
                   key={index}
@@ -161,7 +161,7 @@ const Landing = () => {
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Link
                 to="/register"
-                className={`text-white px-8 py-4 rounded-lg font-semibold text-lg hover:opacity-90 transition-opacity text-center ${
+                className={`w-full sm:w-auto text-white px-8 py-4 rounded-lg font-semibold text-lg hover:opacity-90 transition-opacity text-center ${
                   theme === 'dark'
                     ? 'bg-gradient-to-r from-[#50B4F7] to-[#2A80B9]'
                     : 'bg-gradient-to-r from-primary-500 to-blue-500'
@@ -171,7 +171,7 @@ const Landing = () => {
               </Link>
               <Link
                 to="/login"
-                className={`px-8 py-4 rounded-lg font-semibold text-lg transition-colors text-center ${
+                className={`w-full sm:w-auto px-8 py-4 rounded-lg font-semibold text-lg transition-colors text-center ${
                   theme === 'dark'
                     ? 'border-2 border-gray-600 text-white hover:border-[#50B4F7] hover:text-[#50B4F7]'
                     : 'border-2 border-gray-300 text-gray-700 hover:border-primary-500 hover:text-primary-600'
@@ -183,7 +183,7 @@ const Landing = () => {
           </div>
 
           {/* Right Side - Hero Illustration */}
-          <div className="relative">
+          <div className="relative max-w-xl mx-auto w-full lg:max-w-none">
             <div className="relative">
               {/* Glow Effect */}
               {theme === 'dark' && (
@@ -230,14 +230,14 @@ const Landing = () => {
                   }`}
                 >
                   {/* Illustration */}
-                  <div className="flex-1">
+                  <div className="flex-1 w-full max-w-xl mx-auto md:mx-0 md:max-w-none">
                     <div className="rounded-2xl overflow-hidden shadow-lg mb-0">
                       <Illustration className="w-full h-64" theme={theme} />
                     </div>
                   </div>
 
                   {/* Content */}
-                  <div className="flex-1 space-y-4">
+                  <div className="flex-1 space-y-4 text-center md:text-left max-w-xl mx-auto md:mx-0 md:max-w-none">
                     <span
                       className={
                         theme === 'dark'
@@ -297,10 +297,10 @@ const Landing = () => {
               </h3>
               <p className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
                 Create your free account in seconds
-              </p>
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             </div>
 
-            <div className="text-center">
+                        className={`w-full sm:w-auto text-center px-6 py-2 rounded-lg font-medium transition-all transform hover:scale-105 ${
               <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full mb-4 ${
                 theme === 'dark' ? 'bg-[#50B4F7]/20' : 'bg-primary-100'
               }`}>
@@ -310,7 +310,7 @@ const Landing = () => {
                 theme === 'dark' ? 'text-white' : 'text-gray-900'
               }`}>
                 Connect & Setup
-              </h3>
+                        className={`w-full sm:w-auto text-center px-6 py-2 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105 ${
               <p className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
                 Link your Gmail, add your first task or expense
               </p>
@@ -322,7 +322,7 @@ const Landing = () => {
               }`}>
                 <span className="text-3xl">3️⃣</span>
               </div>
-              <h3 className={`text-xl font-semibold mb-2 ${
+                        className={`w-full sm:w-auto justify-center p-3 rounded-lg transition-all transform hover:scale-110 ${
                 theme === 'dark' ? 'text-white' : 'text-gray-900'
               }`}>
                 Let AI Work
@@ -363,7 +363,7 @@ const Landing = () => {
         </div>
 
         {/* Final CTA Section */}
-        <div className={`mt-32 rounded-3xl p-12 text-center ${
+                        <h1 className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight ${
           theme === 'dark'
             ? 'bg-gradient-to-r from-[#50B4F7]/10 to-[#2A80B9]/10 border border-[#50B4F7]/20'
             : 'bg-gradient-to-r from-[#EBF4FF] to-[#DBEAFE] border border-primary-200'
@@ -373,7 +373,7 @@ const Landing = () => {
           }`}>
             Ready to Boost Your Productivity?
           </h2>
-          <p className={`text-xl mb-8 ${
+                      <p className={`text-lg sm:text-xl md:text-2xl leading-relaxed max-w-2xl mx-auto lg:mx-0 ${
             theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
           }`}>
             Join thousands of users who are already using AI to work smarter.

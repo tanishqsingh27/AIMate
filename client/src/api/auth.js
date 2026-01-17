@@ -1,13 +1,20 @@
 import axios from 'axios';
 
+// Ensure API URL is properly configured
 const API_URL = import.meta.env.VITE_API_URL || '/api';
+
+// Log API URL in development for debugging
+if (import.meta.env.DEV) {
+  console.log('API URL:', API_URL);
+}
 
 const api = axios.create({
   baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
-  timeout: 10000, // 10 second timeout for faster failure detection
+  timeout: 30000, // 30 second timeout for slower devices/networks
+  withCredentials: false, // Set to true only if using cookies
 });
 
 // Add token to requests
@@ -40,6 +47,17 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
+    // Enhanced error handling for cross-device issues
+    if (error.code === 'ECONNABORTED') {
+      console.error('Request timeout - slow network or server issue');
+      error.message = 'Request timeout. Please check your internet connection.';
+    } else if (error.message === 'Network Error') {
+      console.error('Network error - possible CORS or connectivity issue');
+      error.message = 'Unable to connect to server. Please check your connection.';
+    } else if (error.response) {
+      // Log server error for debugging
+      console.error('API Error:', error.response.status, error.response.data);
+    }
     return Promise.reject(error);
   }
 );

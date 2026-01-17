@@ -27,11 +27,11 @@ const Layout = () => {
     >
       {/* Top Bar */}
       <header
-        className={`w-full px-6 md:px-8 py-3 flex items-center justify-between border-b transition-colors ${
+        className={`w-full px-4 sm:px-6 md:px-8 py-3 flex flex-wrap items-center justify-between gap-3 border-b transition-colors ${
           theme === 'dark' ? 'border-gray-800 bg-gray-900' : 'border-gray-200 bg-white'
         }`}
       >
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-4 sm:gap-8 flex-wrap">
           <div>
             <h1
               className={`text-xl font-bold ${
@@ -172,7 +172,7 @@ const Layout = () => {
 
       {/* Main Content */}
       <main
-        className={`px-6 md:px-8 py-6 transition-colors ${
+        className={`px-4 sm:px-6 md:px-8 py-6 transition-colors max-w-full overflow-x-hidden ${
           theme === 'dark' ? 'bg-gray-900' : 'bg-[#F5F7FA]'
         }`}
       >

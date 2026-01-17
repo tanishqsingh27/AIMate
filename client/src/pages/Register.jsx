@@ -39,7 +39,21 @@ const Register = () => {
       toast.success('Account created successfully! Welcome to AIMate!');
       navigate('/app');
     } catch (error) {
-      toast.error(error.response?.data?.error || 'Registration failed');
+      // Enhanced error handling for different scenarios
+      console.error('Registration error:', error);
+      
+      if (error.code === 'ECONNABORTED') {
+        toast.error('Request timeout. Please check your connection and try again.');
+      } else if (error.message === 'Network Error') {
+        toast.error('Cannot connect to server. Please check your internet connection.');
+      } else if (error.response) {
+        // Server responded with error
+        const errorMsg = error.response.data?.error || 'Registration failed';
+        toast.error(errorMsg);
+      } else {
+        // Unknown error
+        toast.error('Registration failed. Please try again.');
+      }
     } finally {
       setLoading(false);
     }

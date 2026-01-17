@@ -3,6 +3,7 @@ import { useAuth } from './context/AuthContext';
 import Layout from './components/Layout';
 import { Suspense, lazy, useEffect } from 'react';
 import Toaster from './components/Toaster';
+import DiagnosticPanel from './components/DiagnosticPanel';
 
 // Code splitting - lazy load pages for faster initial load
 const Landing = lazy(() => import('./pages/Landing'));
@@ -74,6 +75,7 @@ function App() {
   return (
     <>
       <Toaster />
+      <DiagnosticPanel />
       <Suspense fallback={<SimpleLoader />}>
         <Routes>
           <Route path="/" element={<Landing />} />

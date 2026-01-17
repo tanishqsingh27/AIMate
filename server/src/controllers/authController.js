@@ -20,29 +20,59 @@ export const register = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
 
+    console.log('Registration attempt:', { email, hasName: !!name, hasPassword: !!password });
+
     // Validation
     if (!name || !email || !password) {
+      console.warn('Registration failed: Missing fields');
       return res.status(400).json({
         success: false,
         error: 'Please provide name, email, and password',
+        details: {
+          name: !name ? 'Name is required' : null,
+          email: !email ? 'Email is required' : null,
+          password: !password ? 'Password is required' : null,
+        },
+      });
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      console.warn('Registration failed: Invalid email format');
+      return res.status(400).json({
+        success: false,
+        error: 'Please provide a valid email address',
+      });
+    }
+
+    // Password validation
+    if (password.length < 6) {
+      console.warn('Registration failed: Password too short');
+      return res.status(400).json({
+        success: false,
+        error: 'Password must be at least 6 characters long',
       });
     }
 
     // Check if user exists
-    const userExists = await User.findOne({ email });
+    const userExists = await User.findOne({ email: email.toLowerCase() });
     if (userExists) {
+      console.warn('Registration failed: User already exists:', email);
       return res.status(400).json({
         success: false,
-        error: 'User already exists',
+        error: 'User already exists with this email',
       });
     }
 
     // Create user
     const user = await User.create({
       name,
-      email,
+      email: email.toLowerCase(),
       password,
     });
+
+    console.log('User created successfully:', user._id);
 
     // Generate token
     const token = generateToken(user._id);
@@ -57,6 +87,14 @@ export const register = async (req, res, next) => {
       },
     });
   } catch (error) {
+    console.error('Registration error:', error.message);
+    // Check for MongoDB duplicate key error
+    if (error.code === 11000) {
+      return res.status(400).json({
+        success: false,
+        error: 'User already exists with this email',
+      });
+    }
     next(error);
   }
 };
