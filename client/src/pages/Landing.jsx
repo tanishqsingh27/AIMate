@@ -297,10 +297,10 @@ const Landing = () => {
               </h3>
               <p className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
                 Create your free account in seconds
-                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              </p>
             </div>
 
-                        className={`w-full sm:w-auto text-center px-6 py-2 rounded-lg font-medium transition-all transform hover:scale-105 ${
+            <div className="text-center">
               <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full mb-4 ${
                 theme === 'dark' ? 'bg-[#50B4F7]/20' : 'bg-primary-100'
               }`}>
@@ -310,7 +310,7 @@ const Landing = () => {
                 theme === 'dark' ? 'text-white' : 'text-gray-900'
               }`}>
                 Connect & Setup
-                        className={`w-full sm:w-auto text-center px-6 py-2 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105 ${
+              </h3>
               <p className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
                 Link your Gmail, add your first task or expense
               </p>
@@ -322,7 +322,7 @@ const Landing = () => {
               }`}>
                 <span className="text-3xl">3️⃣</span>
               </div>
-                        className={`w-full sm:w-auto justify-center p-3 rounded-lg transition-all transform hover:scale-110 ${
+              <h3 className={`text-xl font-semibold mb-2 ${
                 theme === 'dark' ? 'text-white' : 'text-gray-900'
               }`}>
                 Let AI Work
@@ -363,24 +363,24 @@ const Landing = () => {
         </div>
 
         {/* Final CTA Section */}
-                        <h1 className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight ${
+        <div className={`mt-32 rounded-3xl p-10 text-center space-y-6 ${
           theme === 'dark'
             ? 'bg-gradient-to-r from-[#50B4F7]/10 to-[#2A80B9]/10 border border-[#50B4F7]/20'
             : 'bg-gradient-to-r from-[#EBF4FF] to-[#DBEAFE] border border-primary-200'
         }`}>
-          <h2 className={`text-4xl font-bold mb-4 ${
+          <h2 className={`text-3xl sm:text-4xl font-bold ${
             theme === 'dark' ? 'text-white' : 'text-gray-900'
           }`}>
             Ready to Boost Your Productivity?
           </h2>
-                      <p className={`text-lg sm:text-xl md:text-2xl leading-relaxed max-w-2xl mx-auto lg:mx-0 ${
-            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+          <p className={`text-lg sm:text-xl md:text-2xl leading-relaxed max-w-2xl mx-auto ${
+            theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
           }`}>
-            Join thousands of users who are already using AI to work smarter.
+            Join thousands of users already using AI to work smarter.
           </p>
           <Link
             to="/register"
-            className={`inline-block px-10 py-5 rounded-lg font-bold text-xl hover:opacity-90 transition-opacity ${
+            className={`inline-block px-10 py-4 rounded-lg font-bold text-lg sm:text-xl hover:opacity-90 transition-opacity ${
               theme === 'dark'
                 ? 'bg-gradient-to-r from-[#50B4F7] to-[#2A80B9] text-white'
                 : 'bg-gradient-to-r from-primary-500 to-blue-500 text-white'
