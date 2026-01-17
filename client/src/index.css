@@ -31,7 +31,6 @@ html.dark {
     background: var(--bg, #f8fafc);
     color: var(--text, #071233);
     font-size: 14px;
-    overflow-x: hidden; /* Prevent horizontal scroll on small screens */
   }
 }
 
