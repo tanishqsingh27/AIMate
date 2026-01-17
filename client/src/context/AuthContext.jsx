@@ -39,6 +39,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = async (email, password) => {
+    // Clear previous user data before login
+    setUser(null);
     const response = await authAPI.login(email, password);
     const { token: newToken, user: userData } = response.data;
     localStorage.setItem('token', newToken);
@@ -49,6 +51,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const register = async (name, email, password) => {
+    // Clear previous user data before register
+    setUser(null);
     const response = await authAPI.register(name, email, password);
     const { token: newToken, user: userData } = response.data;
     localStorage.setItem('token', newToken);

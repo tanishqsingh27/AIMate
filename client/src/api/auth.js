@@ -24,19 +24,8 @@ api.interceptors.request.use(
   }
 );
 
-// Response cache for GET requests
-const responseCache = new Map();
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
-
 api.interceptors.response.use(
   (response) => {
-    // Cache GET requests
-    if (response.config.method === 'get') {
-      responseCache.set(response.config.url, {
-        data: response.data,
-        timestamp: Date.now(),
-      });
-    }
     return response;
   },
   (error) => {
@@ -51,14 +40,8 @@ export const authAPI = {
   login: (email, password) =>
     api.post('/auth/login', { email, password }),
 
-  getMe: () => {
-    // Check cache first
-    const cached = responseCache.get('/auth/me');
-    if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
-      return Promise.resolve({ data: cached.data });
-    }
-    return api.get('/auth/me');
-  },
+  // Always fetch fresh user data - no caching to prevent showing wrong user
+  getMe: () => api.get('/auth/me'),
 
   getGmailAuthUrl: () => api.get('/auth/gmail/url'),
 
