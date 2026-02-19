@@ -58,7 +58,10 @@ const Tasks = () => {
       toast.loading('AI is generating tasks from your goal...');
       const response = await tasksAPI.generateTasksFromGoal(goal);
       toast.dismiss();
-      toast.success(`AI generated ${response.data.tasks.length} tasks from your goal!`);
+      if (response.data.warning) {
+        toast(response.data.warning, { icon: '⚠️' });
+      }
+      toast.success(`Generated ${response.data.tasks.length} tasks from your goal!`);
       setGoal('');
       setShowGoalForm(false);
       fetchTasks();

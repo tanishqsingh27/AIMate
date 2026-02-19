@@ -1,6 +1,49 @@
 import Task from '../models/Task.js';
 import { generateTasksFromGoal } from '../services/openaiService.js';
 
+const createFallbackTasksFromGoal = (goal) => {
+  const trimmedGoal = goal.trim();
+  const baseTitle = trimmedGoal.length > 80 ? `${trimmedGoal.slice(0, 77)}...` : trimmedGoal;
+
+  return [
+    {
+      title: `Define scope for: ${baseTitle}`,
+      description: 'Clarify what success looks like, constraints, and timeline for this goal.',
+      priority: 'high',
+      estimatedDays: 1,
+      tags: ['planning'],
+    },
+    {
+      title: 'Research and gather resources',
+      description: `Collect learning materials, tools, and references needed for "${baseTitle}".`,
+      priority: 'medium',
+      estimatedDays: 2,
+      tags: ['research'],
+    },
+    {
+      title: 'Create an execution plan',
+      description: 'Break the goal into weekly milestones and define measurable checkpoints.',
+      priority: 'high',
+      estimatedDays: 1,
+      tags: ['planning'],
+    },
+    {
+      title: 'Start first milestone',
+      description: 'Begin the highest-impact milestone and track progress daily.',
+      priority: 'high',
+      estimatedDays: 3,
+      tags: ['execution'],
+    },
+    {
+      title: 'Review progress and adjust',
+      description: 'Evaluate progress, identify blockers, and update the next action steps.',
+      priority: 'medium',
+      estimatedDays: 1,
+      tags: ['review'],
+    },
+  ];
+};
+
 /**
  * @route   GET /api/tasks
  * @desc    Get all tasks for user
@@ -106,12 +149,20 @@ export const generateTasksFromGoalRoute = async (req, res, next) => {
       });
     }
 
-    // Generate tasks using AI
-    const aiTasks = await generateTasksFromGoal(goal);
+    let generatedTasks = [];
+    let warning = null;
+
+    try {
+      generatedTasks = await generateTasksFromGoal(goal);
+    } catch (aiError) {
+      console.error('AI generation failed, using fallback task generator:', aiError.message || aiError);
+      generatedTasks = createFallbackTasksFromGoal(goal);
+      warning = 'AI generation is temporarily unavailable, so template-based tasks were created instead.';
+    }
 
     // Create tasks in database
     const tasks = await Task.insertMany(
-      aiTasks.map(task => ({
+      generatedTasks.map(task => ({
         user: req.user.id,
         title: task.title,
         description: task.description || '',
@@ -129,6 +180,7 @@ export const generateTasksFromGoalRoute = async (req, res, next) => {
       success: true,
       count: tasks.length,
       tasks,
+      ...(warning && { warning }),
     });
   } catch (error) {
     next(error);

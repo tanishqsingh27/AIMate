@@ -55,6 +55,9 @@ export const generateTasksFromGoal = async (goal) => {
     return tasks;
   } catch (error) {
     console.error('Error generating tasks from goal:', error.message || error);
+    if (error?.status === 429 || /429|quota|insufficient_quota/i.test(error?.message || '')) {
+      throw new Error('OpenAI quota exceeded. Please check your plan and billing details.');
+    }
     if (error.message?.includes('API key') || error.message?.includes('OPENAI_API_KEY')) {
       throw new Error('OpenAI API key is not configured. Please add OPENAI_API_KEY to your .env file.');
     }
